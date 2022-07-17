@@ -1,5 +1,7 @@
 # Shop Angular Cloudfront
 
+URL: https://d13onqf6z1rbmj.cloudfront.net
+
 Angular version: ~12.
 
 Repo maintainers:
