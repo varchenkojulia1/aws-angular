@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { EMPTY, Observable, of, throwError } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { Product } from './product.interface';
@@ -12,7 +12,7 @@ import { ApiService } from '../core/api.service';
 })
 export class ProductsService extends ApiService {
   private baseUrl =
-    ' https://ycwjbirvzh.execute-api.eu-west-1.amazonaws.com/dev';
+    'https://r4qa6fskb3.execute-api.eu-west-1.amazonaws.com/dev';
 
   createNewProduct(product: Product): Observable<Product> {
     if (!this.endpointEnabled('bff')) {
@@ -43,6 +43,7 @@ export class ProductsService extends ApiService {
       console.warn(
         'Endpoint "bff" is disabled. To enable change your environment.ts config'
       );
+
       return this.http
         .get<Product[]>('/assets/products.json')
         .pipe(

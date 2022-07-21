@@ -1,6 +1,6 @@
 # Shop Angular Cloudfront
 
-URL: d2lw8jajgxck32.cloudfront.net
+URL: https://d14xnc6d1no1ui.cloudfront.net/
 
 Angular version: ~12.
 
