@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { EMPTY, Observable, of, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { Product } from './product.interface';
 
@@ -11,6 +11,9 @@ import { ApiService } from '../core/api.service';
   providedIn: 'root',
 })
 export class ProductsService extends ApiService {
+  private baseUrl =
+    'https://r4qa6fskb3.execute-api.eu-west-1.amazonaws.com/dev';
+
   createNewProduct(product: Product): Observable<Product> {
     if (!this.endpointEnabled('bff')) {
       console.warn(
@@ -40,6 +43,7 @@ export class ProductsService extends ApiService {
       console.warn(
         'Endpoint "bff" is disabled. To enable change your environment.ts config'
       );
+
       return this.http
         .get<Product[]>('/assets/products.json')
         .pipe(
@@ -56,15 +60,7 @@ export class ProductsService extends ApiService {
   }
 
   getProducts(): Observable<Product[]> {
-    if (!this.endpointEnabled('bff')) {
-      console.warn(
-        'Endpoint "bff" is disabled. To enable change your environment.ts config'
-      );
-      return this.http.get<Product[]>('/assets/products.json');
-    }
-
-    const url = this.getUrl('bff', 'products');
-    return this.http.get<Product[]>(url);
+    return this.http.get<Product[]>(`${this.baseUrl}/products`);
   }
 
   getProductsForCheckout(ids: string[]): Observable<Product[]> {
@@ -73,7 +69,8 @@ export class ProductsService extends ApiService {
     }
 
     return this.getProducts().pipe(
-      map((products) => products.filter((product) => ids.includes(product.id)))
+      map((products) => products.filter((product) => ids.includes(product.id))),
+      catchError(() => of([]))
     );
   }
 }
