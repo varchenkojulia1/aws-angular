@@ -73,4 +73,16 @@ export class ProductsService extends ApiService {
       catchError(() => of([]))
     );
   }
+
+  postProduct(
+    title: string,
+    description: string,
+    price: number
+  ): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/products`, {
+      title,
+      description,
+      price,
+    });
+  }
 }
