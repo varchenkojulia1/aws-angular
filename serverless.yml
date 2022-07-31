@@ -11,20 +11,22 @@
 #
 # Happy Coding!
 
-service: rs-school-app
+service: shop-angular-198756456
 # app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
+app: rs-school-app
+org: yuliiavarchenko
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-frameworkVersion: "2"
+frameworkVersion: "3.20.0"
 
 provider:
   name: aws
+  stackName: shop-angular-11111111
   runtime: nodejs12.x
   ## this is my personal AWS account. This must be skipped in you serverless.yml
-  profile: personalAccount
+  profile: default
+  region: eu-west-1
 
 plugins:
   - serverless-finch
@@ -33,8 +35,8 @@ plugins:
 custom:
   ## Serverless-finch configuration
   client:
-    bucketName: rs-school-app
-    distributionFolder: build
+    bucketName: mybacketangular1111111
+    distributionFolder: dist
     indexDocument: index.html
     manageResources: false
   ## Serverless-single-page-app-plugin configuration:
